@@ -6,14 +6,14 @@ export default function Home() {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [loading, setLoading] = useState(false);
-  const [copy, setCopy] = useState('')
+  const [copy, setCopy] = useState("");
 
   const handleCick = () => {
     if (!url) return alert(" Heyyyy Brooo, Where is your Long URL??????");
     if (url.startsWith("https://" || "https://")) {
       setLoading(true);
       axios
-        .get("https://0i.vercel.app/shorten?longUrl=" + url)
+        .get(process.env.NEXT_PUBLIC_BACKEND_URL + "/shorten?longUrl=" + url)
         .then((response) => {
           setUrl("");
           setShortUrl(response.data.shortUrl);
@@ -30,15 +30,16 @@ export default function Home() {
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(shortUrl)
+    navigator.clipboard
+      .writeText(shortUrl)
       .then(() => {
-        setCopy("🚀Link copied successfully📷")
+        setCopy("🚀Link copied successfully📷");
         setTimeout(() => {
-          setCopy('')
+          setCopy("");
         }, 3000);
       })
       .catch((error) => {
-        console.error('Error copying text to clipboard:', error);
+        console.error("Error copying text to clipboard:", error);
       });
   };
   return (
