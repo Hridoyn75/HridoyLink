@@ -15,7 +15,6 @@ export default function Home() {
       axios
         .get(process.env.NEXT_PUBLIC_BACKEND_URL + "/shorten?longUrl=" + url)
         .then((response) => {
-          console.log(response.data);
           setUrl("");
           setShortUrl(response.data.shortUrl);
           setLoading(false);
