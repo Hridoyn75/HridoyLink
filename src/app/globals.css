@@ -13,7 +13,6 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
 .card:hover{
   box-shadow: 0 0 25px #2563eb;
 }
