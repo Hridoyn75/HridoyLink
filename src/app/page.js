@@ -45,10 +45,10 @@ export default function Home() {
   };
   return (
     <main className=" bg-slate-900 w-full min-h-screen flex justify-center  items-center">
-      <div className=" relative card border-[3px] rounded border-blue-600 w-[500px] h-[300px] text-center text-slate-200 max-w-full mx-2 bg-slate-950 p-5">
+      <div className=" relative card border-[3px] rounded border-blue-600 w-[500px] text-center text-slate-200 max-w-full mx-2 bg-slate-950 p-10">
         {!loading && !shortUrl && (
           <>
-            <h1 className=" mt-3 text-4xl font-bold gradient-text">
+            <h1 className=" text-4xl font-bold gradient-text">
               HridoyLink
             </h1>
             <h2 className=" py-2">Next Level Linking</h2>
@@ -62,7 +62,7 @@ export default function Home() {
             <br />
             <button
               onClick={handleCick}
-              className=" my-3 py-3 w-1/2  bg-slate-950 border-yellow-400 border-2 rounded-xl hover:scale-105 transition-all duration-300 hover:border-green-600"
+              className=" mt-3 py-3 w-1/2  bg-slate-950 border-yellow-400 border-2 rounded-xl hover:scale-105 transition-all duration-300 hover:border-green-600"
             >
               make it Short
             </button>
@@ -71,7 +71,7 @@ export default function Home() {
 
         {shortUrl && (
           <>
-            <p className=" text-xl md:text-2xl my-8 font-bold text-yellow-500">
+            <p className=" text-xl md:text-2xl mb-5 font-bold text-yellow-500">
               Done🚀 Your Link is ready...🐱‍🏍
             </p>
             <p className=" mx-auto py-3 px-4 w-4/5 bg-slate-800 text-yellow-500 rounded-md font-bold text-center">
@@ -80,13 +80,13 @@ export default function Home() {
             <div className=" flex justify-center items-center gap-3 mt-5">
               <button
                 onClick={handleNew}
-                className=" py-2 px-4   bg-slate-950 border-yellow-400 border-2 rounded-xl hover:scale-105 transition-all duration-300 hover:border-green-600"
+                className=" text-sm py-2 px-4   bg-slate-950 border-yellow-400 border-2 rounded-xl hover:scale-105 transition-all duration-300 hover:border-green-600"
               >
                 short a new one
               </button>
               <button
                 onClick={copyToClipboard}
-                className=" py-2 px-4  bg-slate-950 border-green-400 border-2 rounded-xl hover:scale-105 transition-all duration-300 hover:border-green-600"
+                className=" text-sm py-2 px-4  bg-slate-950 border-green-400 border-2 rounded-xl hover:scale-105 transition-all duration-300 hover:border-green-600"
               >
                 Click to Copy
               </button>
