@@ -16,7 +16,7 @@ const LinkTrackPage = ({ params }) => {
       .get(process.env.NEXT_PUBLIC_BACKEND_URL + "/track/" + TrackingId)
       .then((res) => setData(res.data))
       .catch((err) => console.error(err));
-  }, [refresh]);
+  }, [refresh,TrackingId]);
   return (
     <main className=" bg-slate-900 w-full min-h-screen flex justify-center  items-center">
       <div className=" relative card border-[3px] rounded border-blue-600 w-[600px] text-center text-slate-200 max-w-full mx-2 bg-slate-950 p-10">
