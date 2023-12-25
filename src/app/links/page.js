@@ -1,6 +1,6 @@
 "use client";
 
-import { getLocal } from "@/components/libs/storage";
+import { getLocal } from "@/libs/storage";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
