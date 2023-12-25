@@ -1,6 +1,6 @@
 "use client";
 import Loader from "@/components/loader";
-import { getLocal, setLocal } from "@/libs/storage";
+import { getLocal, setLocal } from "@/components/libs/storage";
 import axios from "axios";
 import { useState } from "react";
 

@@ -1,4 +1,3 @@
-'use client'
 export function setLocal(key, value) {
   const item = {
     value: value,
