@@ -1,11 +1,13 @@
 "use client";
 import Loader from "@/components/loader";
+import { getLocal, setLocal } from "@/libs/storage";
 import axios from "axios";
 import { useState } from "react";
 
 export default function Home() {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
+  const [TrackingId, setTrackingId] = useState("");
   const [loading, setLoading] = useState(false);
   const [copy, setCopy] = useState("");
 
@@ -18,7 +20,12 @@ export default function Home() {
         .then((response) => {
           setUrl("");
           setShortUrl(response.data.shortUrl);
+          setTrackingId(response.data.tracking_id);
           setLoading(false);
+          
+          const myLinks = getLocal('myLinks') || [];
+          const newLinks = [...myLinks, response.data ]
+          setLocal('myLinks', newLinks);
         })
         .catch((error) => console.log(error));
     } else {
@@ -28,6 +35,7 @@ export default function Home() {
 
   const handleNew = () => {
     setShortUrl("");
+    setTrackingId("");
   };
 
   const copyToClipboard = () => {
@@ -91,6 +99,7 @@ export default function Home() {
                 Click to Copy
               </button>
             </div>
+            <p className=" text-slate-300 mt-5">Your Tracking ID: <span className="  font-bold px-3 py-1 bg-slate-600 rounded">{TrackingId}</span> </p>
           </>
         )}
 
