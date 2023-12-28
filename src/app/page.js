@@ -7,25 +7,43 @@ import { useState } from "react";
 export default function Home() {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
+  const [customAlias, setCustomAlias] = useState("");
   const [TrackingId, setTrackingId] = useState("");
   const [loading, setLoading] = useState(false);
   const [copy, setCopy] = useState("");
+  const [aliasFailed, setAliasFailed] = useState("");
 
   const handleCick = () => {
     if (!url) return alert(" Heyyyy Brooo, Where is your Long URL??????");
     if (url.startsWith("https://" || "https://")) {
       setLoading(true);
       axios
-        .get(process.env.NEXT_PUBLIC_BACKEND_URL + "/shorten?longUrl=" + url)
+        .get(
+          process.env.NEXT_PUBLIC_BACKEND_URL +
+            "/shorten?longUrl=" +
+            url +
+            "&customAlias=" +
+            customAlias
+        )
         .then((response) => {
           setUrl("");
+          setCustomAlias("");
           setShortUrl(response.data.shortUrl);
           setTrackingId(response.data.tracking_id);
           setLoading(false);
-          
-          const myLinks = getLocal('myLinks') || [];
-          const newLinks = [...myLinks, response.data ]
-          setLocal('myLinks', newLinks);
+          setAliasFailed("");
+
+          const myLinks = getLocal("myLinks") || [];
+          const newLinks = [...myLinks, response.data];
+          setLocal("myLinks", newLinks);
+        })
+        .catch((error) => {
+          const aliasError =
+            error.response.data === "This alias already exists:(";
+          if (!aliasError) return error;
+
+          setLoading(false);
+          setAliasFailed("This alias already exists:(");
         })
         .catch((error) => console.log(error));
     } else {
@@ -56,9 +74,7 @@ export default function Home() {
       <div className=" relative card border-[3px] rounded border-blue-600 w-[500px] text-center text-slate-200 max-w-full mx-2 bg-slate-950 p-10">
         {!loading && !shortUrl && (
           <>
-            <h1 className=" text-4xl font-bold gradient-text">
-              HridoyLink
-            </h1>
+            <h1 className=" text-4xl font-bold gradient-text">HridoyLink</h1>
             <h2 className=" py-2">Next Level Linking</h2>
             <input
               placeholder="Paste your long URL"
@@ -67,7 +83,16 @@ export default function Home() {
               type="text"
               className=" w-5/6  md:w-3/4 bg-slate-900 px-4 my-3 py-3 rounded border-2 border-green-600 focus:outline-none focus:scale-110 transition-all duration-300 focus:border-yellow-600"
             />
+            <input
+              placeholder="Custom alias (Optional)"
+              value={customAlias}
+              onChange={(e) => setCustomAlias(e.target.value)}
+              type="text"
+              className=" w-5/6  md:w-3/4 bg-slate-900 px-4 my-3 py-1 rounded border-2 border-green-600 focus:outline-none focus:scale-110 transition-all duration-300 focus:border-yellow-600"
+            />
+
             <br />
+            {aliasFailed && <p className=" text-red-600">{aliasFailed}</p>}
             <button
               onClick={handleCick}
               className=" mt-3 py-3 w-1/2  bg-slate-950 border-yellow-400 border-2 rounded-xl hover:scale-105 transition-all duration-300 hover:border-green-600"
@@ -99,13 +124,16 @@ export default function Home() {
                 Click to Copy
               </button>
             </div>
-            <p className=" text-slate-300 mt-5">Your Tracking ID: <span className="  font-bold px-3 py-1 bg-slate-600 rounded">{TrackingId}</span> </p>
+            <p className=" text-slate-300 mt-5">
+              Your Tracking ID:{" "}
+              <span className="  font-bold px-3 py-1 bg-slate-600 rounded">
+                {TrackingId}
+              </span>{" "}
+            </p>
           </>
         )}
 
-        {loading && (
-          <Loader />
-        )}
+        {loading && <Loader />}
       </div>
     </main>
   );

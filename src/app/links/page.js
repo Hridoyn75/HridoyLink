@@ -1,5 +1,6 @@
 "use client";
 
+import Loader from "@/components/loader";
 import { getLocal } from "@/libs/storage";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -7,8 +8,9 @@ import { useEffect, useState } from "react";
 const MyLinksPage = () => {
   const [MyLinks, setMyLinks] = useState([]);
   useEffect(() => {
-    setMyLinks(getLocal("myLinks") || []);
+    setMyLinks(getLocal("myLinks").reverse() || []);
   }, []);
+
   return (
     <main className=" py-10 bg-slate-900 w-full min-h-screen flex justify-center  items-center">
       <div className=" relative card border-[3px] rounded border-blue-600 w-[800px] text-center text-slate-200 max-w-full mx-2 bg-slate-950 p-10">
