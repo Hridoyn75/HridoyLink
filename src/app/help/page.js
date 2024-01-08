@@ -26,7 +26,7 @@ const HelpPage = () => {
               <path d="M9 18c-4.51 2-5-2-7-2" />
             </svg>
           </Link>
-          <Link href={"mailt:hridoyn75@gmail.com"} target="_blank">
+          <Link href={"mailto:hridoyn75@gmail.com"} target="_blank">
             <svg
               className=" text-slate-600 hover:text-white"
               xmlns="http://www.w3.org/2000/svg"

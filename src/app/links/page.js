@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 const MyLinksPage = () => {
   const [MyLinks, setMyLinks] = useState([]);
   useEffect(() => {
+    if(getLocal("myLinks"))
     setMyLinks(getLocal("myLinks").reverse() || []);
   }, []);
 
